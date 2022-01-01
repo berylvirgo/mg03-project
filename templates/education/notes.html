@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block title %} MG03 | Notes {% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-sticky-note"></i> Notes</h1>
+    </div>
+    <!-- Content Row -->
+    <!-- /.container-fluid -->
+    <div class="card o-hidden border-0 shadow-lg my-5 col-lg-12 mobile-card" style="padding: 50px;">
+        <div class="header-bar">
+            <div>
+                <h3 style="margin:0;">You have <i>{{count}}</i> incomplete note{{count|pluralize:"s"}}</h3>
+            </div>
+        </div>
+
+        <div id="search-add-wrapper" style="padding: 10px 10px 10px 0;">
+            <form
+                class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="GET" style="margin-top: 20px; display: flex;margin-left: 0!important;">
+                <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search notes"
+                        aria-label="Search" aria-describedby="basic-addon2" name="search-area" value="{{search_input}}">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="submit" value="Search">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <a id="add-link" href="{% url 'create-note' %}">&#x2b;</a>
+        </div>
+        <div class="task-items-wrapper">
+            {% for note in notes %}
+            <div class="task-wrapper">
+                {% if note.complete %}
+                <div class="task-title">
+                    <div class="task-complete-icon"></div>
+                    <i><s><a href="{% url 'update-note' note.id %}">{{note}}</a></s></i>
+                </div>
+                <a class="delete-link" href="{% url 'delete-note' note.id %}">&#215;</a>
+                {% else %}
+                <div class="task-title">
+                    <div class="task-incomplete-icon"></div>
+                    <a href="{% url 'update-note' note.id %}">{{note}}</a>
+                </div>
+                <a class="delete-link" href="{% url 'delete-note' note.id %}">&#215;</a>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div class="album py-5 bg-light">
+                <h3 style="padding: 10px;">You have not added a note.</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

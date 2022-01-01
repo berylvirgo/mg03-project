@@ -1,0 +1,28 @@
+
+{% extends 'layout.html' %}
+{% block title %} MG03 | Add Note {% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Notes</h1>
+    </div>
+    <!-- Content Row -->
+    <!-- /.container-fluid -->
+    <div class="card o-hidden border-0 shadow-lg my-5 col-lg-12 mobile-card" style="padding: 50px;">
+        <div class="header-bar">
+            <a href="{% url 'notes' %}">&#8592;</a>
+        </div>
+
+        <div class="card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="btn btn-success btn-block">Add Note</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
