@@ -43,6 +43,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOCAL_APPS = [
     'users',
     'education',
+    'centers',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -74,6 +75,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
+                # Custom Context Processors
+                'centers.context_processors.messages_and_alerts',
+
+                # Social Django Context Processors
                 'social_django.context_processors.backends',  # <-- Here
                 'social_django.context_processors.login_redirect', # <-- Here
             ],

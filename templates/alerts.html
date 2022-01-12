@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block title %} MG03 | Alerts {% endblock %}
+{% load static %}
+
+{% block styles %}  
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="{% static 'css/all.min.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800"><i class="fab fa-message"></i> Alerts</h1>
+    </div>
+    <!-- Content Row -->
+    <div class"row">
+        <div class="card o-hidden border-0 shadow-lg my-5 col-lg-12 mobile-card" style="padding: 50px;">
+            {% for alert in alerts %}
+            {% if alert.is_read %}
+            <div class="mailbox-email" style="font-weight: normal; background-color: rgba(242, 245, 245, 0.8);">
+            {% else %}
+            <div class="mailbox-email" style="font-weight: bold; background-color: white;">
+            {% endif %}
+
+                <a href="{% url 'alerts' %}/{{alert.id}}" style="color: grey; text-decoration: none;">
+                    <div class="far fa-square" style="color: grey; margin-right: 20px;"></div>
+                    {% if alert.is_read %}
+                    <span>{{alert.body}} </span>
+                    <span style="float: right;"> {{alert.created}}</span>
+                    {% else %}
+                    <span style="font-weight: bold;">{{alert.body}} </span>
+                    <span style="font-weight: bold; float: right;"> {{alert.created}}</span>
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
